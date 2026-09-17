@@ -93,9 +93,10 @@ def create_app(test_config=None):
         if try_questions == True:
             documents = db.get_documents()
             question = request.json["question"]
-            k = request.json["k"]
-            # randomly sample 5 documents or less
-            documents = random.sample(documents, k=2)
+            k = request.json.get("k", 2)
+             # randomly sample k documents (or all if k > len(documents))
+            k = min(int(k), len(documents))
+            documents = random.sample(documents, k=k)
 
             texts = [doc["text"] for doc in documents]
             answers = question_answer.ask_question_to_texts(question, texts=texts)
