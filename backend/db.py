@@ -241,18 +241,23 @@ class TextDB:
             keys = ["id", "text", "topic_id"]
             return [dict(zip(keys, row)) for row in raw]
 
-    def get_document(self, doc_id: int) -> tuple[int, str, int]:
-        """Returns a document from Documents as a string
+    def get_document(self, doc_id: int) -> dict:
+        """Returns a document from Documents as a dict
 
         Args:
-          doc_id: the id of the document
+            doc_id: the id of the document
 
         Returns:
+            dict with keys "id", "text", "topic_id" or None if not found
         """
         with self.conn as conn:
             cursor = conn.cursor()
             cursor = cursor.execute("SELECT * FROM Documents WHERE id = ?", (doc_id,))
-            return cursor.fetchone()
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            keys = ["id", "text", "topic_id"]
+            return dict(zip(keys, row))
 
     def get_documents_without_answer(self, question_id: int) -> list[tuple[int, str]]:
         """Returns all docs from Documents as a list
