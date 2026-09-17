@@ -385,7 +385,7 @@ class TextDB:
             cursor = conn.cursor()
             cursor = cursor.execute(
                 """
-                SELECT d.id, d.doc, a.answer, a.topic_id
+                SELECT d.id, d.doc, a.answer, d.topic_id
                 FROM Documents d
                 LEFT JOIN Answers a ON d.id = a.doc_id
             """
