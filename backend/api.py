@@ -18,7 +18,7 @@ def create_app(test_config=None):
     if test_config:
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
+    # ensure instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -114,8 +114,9 @@ def create_app(test_config=None):
             return jsonify(documents), 200
 
         if try_questions == False:
-            questions = db.get_questions()
-            for question in questions:
+            # collect answers across all questions. empty list if there are none
+            results = []
+            for question in db.get_questions():
                 question_id = question["id"]
                 question_text = question["question"]
                 documents = db.get_documents_without_answer(question_id)
@@ -127,9 +128,9 @@ def create_app(test_config=None):
                 for answer, doc in zip(answers, documents):
                     doc["question"] = question_text
                     doc["answer"] = answer
-                for doc in documents:
-                    db.insert_answer(doc["id"], question_id, doc["answer"])
-            return jsonify(documents), 200
+                    db.insert_answer(doc["id"], question_id, answer)
+                results.extend(documents)
+            return jsonify(results), 200
 
     @app.route("/answers", methods=["GET"])
     def get_answers():
