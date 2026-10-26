@@ -141,6 +141,9 @@ class TopicModel:
     ) -> tuple[int, float]:
         """Computes the cost function for the model
 
+        Implementation from https://github.com/dborrelli/chat-intents/blob/main/chatintents/chatintents.py, 
+        original idea from Nikolay Oskolkov (https://towardsdatascience.com/how-to-cluster-in-high-dimensions-4ef693bacc6/).
+
         Args:
             clusters (HDBSCAN): fitted hdbscan model
             out_of_range_cluster_penalty (float, optional): the penalty for the number of clusters outside the desired range. Defaults to 0.15.
