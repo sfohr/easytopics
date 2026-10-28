@@ -1,10 +1,12 @@
-# easytopics
+# EasyTopics
 
-This is a web application to preprocess textual data with LLMs, cluster the results and visualize them. WIP.
+**IMPORTANT:** Will be archived. This is (close to) the original version of EasyTopics, built as my solo project for the M.Sc. seminar “Practical Applications of Large Language Models” at LMU Munich. Frontend proudly presented by an early version of ChatGPT (GPT-3.5). It no longer runs as-is, as it depends on early versions of the OpenAI and LangChain libraries whose APIs have since changed. Development continues at [sfohr/easytopics](https://github.com/sfohr/easytopics/).
+
+EasyTopics is a web app for question-guided topic modelling of open-ended text, e.g. survey responses. For a question or multiple questions you define, an LLM extracts the relevant part of each response. Only these extracted, and possibly pasted, answers are clustered, so the topics reflect your question rather than whatever dominates the raw text.
 
 # Backend
 
-Make sure to expose environment variables as stated in `backend/.envrc_template`.
+Make sure to expose environment variables as stated in `backend/.env_template`.
 
 # Built with:
 
@@ -24,8 +26,6 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-
-Do not forget to expose environment variables as stated in `backend/.envrc_template`.
 
 Next we install the frontend dependencies:
 
