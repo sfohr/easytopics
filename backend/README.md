@@ -1,2 +1,0 @@
-# easytopics backend
-
