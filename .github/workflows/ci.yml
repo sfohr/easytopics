@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_dispatch: # adds ability to start the workflow by hand from the actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend    # all 'run' steps execute in backend/
+    steps:
+      - uses: actions/checkout@v7               # downloads the repo into the VM
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: "0.13.6"
+          working-directory: backend
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run ruff check    # linting
+      - run: uv run ruff format --check   # formatting: only checks
+      - run: uv run pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker compose build
