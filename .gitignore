@@ -31,5 +31,14 @@ __pycache__
 .prettierrc
 .eslintrc.cjs
 
-backend/*.csv
-backend/instance/*.sqlite
+# Secrets & local data
+.env
+data/*
+!data/.gitkeep
+
+# Python tool caches
+.pytest_cache
+.ruff_cache
+
+legacy/backend/*.csv
+legacy/backend/instance/*.sqlite
