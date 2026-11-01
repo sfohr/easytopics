@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      OLLAMA_BASE_URL: http://host.docker.internal:11434/v1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # makes the line above Linux-compatible
+    volumes:
+      - ./data:/app/data    # SQLite survives rebuilds
+
+  ollama:                   # opt-in for local models via ollama: docker compose --profile ollama up
+    image: ollama/ollama
+    profiles: ["ollama"]
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  ollama:
