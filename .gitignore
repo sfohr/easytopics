@@ -39,6 +39,7 @@ data/*
 # Python tool caches
 .pytest_cache
 .ruff_cache
+.mypy_cache
 
 legacy/backend/*.csv
 legacy/backend/instance/*.sqlite

@@ -19,6 +19,7 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "httpx2>=2.16.0",
+    "mypy>=2.4.1",
     "pytest>=9.2.0",
     "ruff>=0.17.3",
 ]
@@ -29,3 +30,7 @@ select = ["E", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
